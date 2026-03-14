@@ -38,6 +38,14 @@ export default function RSVPForm() {
 
   const mwcParticipation = watch('mwc_participation');
   const meetingType = watch('meeting_type');
+  const docentDate = watch('docent_date');
+  const bizDate = watch('biz_date');
+
+  useEffect(() => {
+    if (meetingType === 'both' && docentDate && !bizDate) {
+      methods.setValue('biz_date', docentDate, { shouldValidate: true });
+    }
+  }, [docentDate, meetingType]);
 
   useEffect(() => {
     fetch('/api/slots')
